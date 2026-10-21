@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8f5f0">
+<title>角色档案馆</title>
+<style>
+:root{--paper:#f7f1e7;--card:#fffaf1;--ink:#4a4540;--muted:#8c8175;--line:#e5d8c7;--clay:#879cac;--clay-dark:#536b7c;--soft:#e9e1d4;--shadow:0 5px 14px rgba(83,67,48,.09)}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.55;background-color:var(--paper);background-image:radial-gradient(#cdbfae44 .7px,transparent .7px);background-size:7px 7px}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #879cac;outline-offset:2px}
+.wrap{max-width:1120px;margin:auto;padding:20px 17px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:11px}.mark{width:43px;height:43px;border-radius:50%;background:#d8e0e3;color:#526977;display:grid;place-items:center;font-family:Georgia,serif;font-size:22px;border:1px solid #c2cfd1;box-shadow:2px 3px 0 #c6b7a3}.brand h1{font:600 23px Georgia,"Songti SC",serif;margin:0;letter-spacing:.04em}.brand p{margin:2px 0 0;color:var(--muted);font-size:10px;letter-spacing:.12em}.btn{border:1px solid #d9cbbb;border-radius:9px;padding:9px 13px;background:#fffaf1;color:var(--ink);font-weight:600;box-shadow:1px 2px 0 #e2d5c5}.btn.primary{background:#8197a7;border-color:#718999;color:white;box-shadow:1px 2px 0 #657d8e}.btn.small{font-size:13px;padding:7px 10px}.hero{background:linear-gradient(135deg,#f9f0df,#f7eee4 60%,#e7ece6);border:1px solid #e4d5c2;border-radius:8px;padding:24px 22px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:var(--shadow)}.hero:after{content:"✿";position:absolute;right:25px;top:6px;font-size:78px;color:#bb927a45;transform:rotate(-14deg)}.eyebrow{font-size:10px;letter-spacing:.16em;color:#8d7667;font-weight:700}.hero h2{font:500 clamp(24px,5vw,33px) Georgia,"Songti SC",serif;margin:7px 0}.hero p{color:#796d61;max-width:530px;margin:0;font-size:14px}.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px;position:relative;z-index:1}.stats{display:flex;gap:18px;margin-top:17px;color:#766b60;font-size:12px}.stats b{color:var(--ink);font-size:16px;margin-right:4px}
+.toolbar{display:flex;align-items:center;gap:9px;margin:17px 0;flex-wrap:wrap}.search{flex:1;min-width:180px;border:1px solid var(--line);background:#fffaf4;border-radius:8px;padding:11px 13px;box-shadow:inset 0 1px 2px #9b856010}.section-title{display:flex;justify-content:space-between;align-items:end;margin:23px 0 13px}.section-title h3{font:600 21px Georgia,"Songti SC",serif;margin:0}.section-title span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}.char-card{background:#fffaf2;border:1px solid #e2d5c4;border-radius:5px;overflow:hidden;box-shadow:3px 4px 0 #e4d8c8,0 7px 18px #54432a0b;min-width:0;transform:rotate(-.25deg);position:relative}.char-card:nth-child(2n){transform:rotate(.35deg)}.char-card:before{content:"";position:absolute;z-index:2;top:0;left:50%;transform:translateX(-50%);width:56px;height:13px;background:#c7d6d5b8;clip-path:polygon(5% 0,95% 0,100% 100%,0 100%)}.cover{height:130px;background:linear-gradient(140deg,#e5d9c9,#f1e8d9);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:1px dashed #d9c9b5}.cover:before{content:"";position:absolute;width:145px;height:145px;border:1px solid #fff9;border-radius:50%;right:-32px;top:-72px}.cover:after{content:"✿";position:absolute;right:14px;bottom:5px;color:#9baf9b;font-size:25px;transform:rotate(15deg)}.avatar{width:79px;height:79px;border-radius:50%;background:#fff9;color:#718a99;display:grid;place-items:center;font:36px Georgia,serif;border:4px solid #fffaf0;box-shadow:0 2px 0 #d6c4ae;z-index:1;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.card-content{padding:14px 15px 12px}.name-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.name-row h4{font:600 20px Georgia,"Songti SC",serif;margin:0;overflow-wrap:anywhere}.tag{font-size:10px;padding:4px 8px;border-radius:3px;background:#e3e9e8;color:#5e7582;white-space:nowrap}.subtitle{font-size:12px;color:var(--muted);margin:6px 0 10px;min-height:19px;overflow-wrap:anywhere}.snippet{font-size:13px;color:#6c6258;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:40px;white-space:pre-wrap}.card-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);margin-top:12px;padding-top:10px;color:var(--muted);font-size:11px}.card-bottom button{border:0;background:none;color:var(--clay-dark);font-weight:700;padding:3px}
+.empty{border:1px dashed #d5c5b2;border-radius:8px;padding:35px 18px;text-align:center;color:var(--muted);grid-column:1/-1;background:#fffaf2}.empty .flower{font-size:34px;color:#9aafad}.empty h4{margin:8px 0;color:var(--ink);font-size:17px}.empty p{font-size:13px;margin:0 0 15px}
+.hidden{display:none!important}.view-head{display:flex;align-items:center;gap:12px;margin-bottom:19px}.view-head h2{font:600 25px Georgia,"Songti SC",serif;margin:0}.view-head p{font-size:12px;color:var(--muted);margin:2px 0 0}.form-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:17px}.side{background:#fffaf2;border:1px solid var(--line);border-radius:5px;padding:11px;height:max-content;position:sticky;top:12px;box-shadow:2px 3px 0 #e5d9ca}.side button{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:5px;padding:10px 12px;color:#766c62;font-size:13px;margin:2px 0}.side button.active{background:#e5ebea;color:#526b7a;font-weight:700;border-left:3px solid #8ba1af}.form-panel{background:#fffaf2;border:1px solid var(--line);border-radius:5px;padding:20px;box-shadow:2px 3px 0 #e5d9ca}.panel-title{font:600 20px Georgia,"Songti SC",serif;margin:0 0 5px}.panel-hint{font-size:12px;color:var(--muted);margin:0 0 19px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;font-size:12px;color:#74685e;font-weight:700;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #e3d7c8;border-radius:5px;background:#fffdf8;padding:11px 12px;color:var(--ink)}.field textarea{min-height:100px;resize:vertical;background-image:linear-gradient(transparent 29px,#e8dfd3 30px);background-size:100% 30px;line-height:30px}.field textarea.long{min-height:145px}.field input::placeholder,.field textarea::placeholder{color:#b6aa9b}.form-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px}.right-actions{display:flex;gap:8px}.detail-cover{background:linear-gradient(125deg,#f0e2d0,#e5ece8);border:1px solid #e1d2bf;border-radius:5px;padding:22px;display:flex;gap:17px;align-items:center;margin-bottom:16px;box-shadow:2px 3px 0 #e5d9ca}.detail-cover .avatar{width:90px;height:90px;flex-shrink:0}.detail-cover h2{font:600 28px Georgia,"Songti SC",serif;margin:0 0 4px}.detail-cover p{margin:0;color:#78695e;font-size:13px}.detail-section{background:#fffaf2;border:1px solid #e3d6c6;border-radius:5px;padding:17px;margin-bottom:12px;box-shadow:1px 2px 0 #e9dfd2}.detail-section h3{font:600 17px Georgia,"Songti SC",serif;margin:0 0 12px;padding-bottom:8px;border-bottom:1px dashed #dfd0bd}.detail-item{margin:0 0 13px}.detail-item:last-child{margin-bottom:0}.detail-item b{font-size:12px;color:#627b88;display:block;margin-bottom:4px}.detail-item p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;color:#514a44}.detail-item p.blank{color:#b7aca2;font-style:italic}.notice{font-size:12px;color:var(--muted);margin-top:14px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#536b7c;color:white;border-radius:7px;padding:10px 16px;font-size:13px;box-shadow:var(--shadow);z-index:10}
+@media(max-width:760px){.wrap{padding:15px 12px 38px}.top{margin-bottom:17px}.brand h1{font-size:20px}.hero{padding:20px 17px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.cover{height:105px}.avatar{width:65px;height:65px}.card-content{padding:12px}.name-row h4{font-size:17px}.tag{font-size:10px}.form-layout{grid-template-columns:1fr}.side{position:static;display:flex;overflow-x:auto;gap:3px;padding:7px}.side button{white-space:nowrap;width:auto;flex-shrink:0;padding:8px 10px}.form-panel{padding:15px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.detail-cover{padding:16px}.detail-cover h2{font-size:24px}.stats{gap:12px}}@media(max-width:390px){.grid{grid-template-columns:1fr}.cover{height:112px}.hero h2{font-size:24px}.top .btn{padding:8px 9px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand"><div class="mark">档</div><div><h1>角色档案馆</h1><p>CHARACTER ARCHIVE · YOUR LITTLE UNIVERSE</p></div></div>
+  <button class="btn primary" id="topNew">＋ 新建角色</button>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="eyebrow">A PLACE FOR EVERY STORY</div>
+    <h2>每个角色，都值得被认真记住。</h2>
+    <p>收好他们的身份、性格、经历与那些说不清的细节。这里是你的私人角色档案馆。</p>
+    <div class="hero-actions"><button class="btn primary" id="heroNew">＋ 创建角色卡</button><button class="btn" id="importBtn">导入备份</button><button class="btn" id="exportAll">导出全部</button><input class="hidden" type="file" id="importFile" accept=".json,application/json"></div>
+    <div class="stats"><span><b id="count">0</b> 位角色</span><span><b id="fieldCount">0</b> 个设定字段</span><span>仅保存在本机</span></div>
+  </section>
+  <div class="toolbar"><input id="search" class="search" placeholder="搜索角色姓名、身份或设定…"><select id="filter" class="btn" aria-label="分类筛选"><option value="">全部分类</option><option>原创角色</option><option>AI角色</option><option>故事人物</option><option>其他</option></select><button class="btn" id="exportMd">导出 Markdown</button></div>
+  <div class="section-title"><h3>我的角色</h3><span id="resultCount">0 个档案</span></div>
+  <section id="grid" class="grid"></section>
+</main>
+
+<main id="editor" class="hidden">
+  <div class="view-head"><button class="btn" id="backHome">← 返回</button><div><h2 id="editorHeading">创建角色</h2><p>慢慢填写，不需要一次写完。</p></div></div>
+  <div class="form-layout"><nav class="side" id="nav"></nav><section class="form-panel"><h3 class="panel-title" id="panelTitle">基础身份</h3><p class="panel-hint" id="panelHint">先从名字开始，其他设定随时可以补充。</p><div class="fields" id="fields"></div><div class="form-actions"><button class="btn" id="deleteBtn">删除角色</button><div class="right-actions"><button class="btn" id="cancelEdit">取消</button><button class="btn primary" id="saveBtn">保存角色</button></div></div><p class="notice">自动草稿保存在当前浏览器。正式保存后，建议定期导出备份。</p></section></div>
+</main>
+
+<main id="detail" class="hidden">
+  <div class="view-head"><button class="btn" id="detailBack">← 返回</button><div><h2>角色档案</h2><p>查看完整设定</p></div><div style="margin-left:auto;display:flex;gap:8px"><button class="btn" id="detailExport">导出此卡</button><button class="btn primary" id="detailEdit">编辑</button></div></div>
+  <div id="detailBody"></div>
+</main>
+</div>
+<script>
+const STORE='character-archive-v1';
+const sections=[
+ {id:'basic',title:'基础身份',hint:'角色最基本的信息。空着也没关系。',fields:[
+  ['name','姓名','text','角色叫什么？',true],['alias','别名 / 称呼','text','昵称、代号、对你的称呼'],['category','角色分类','select','',false,['原创角色','AI角色','故事人物','其他']],['age','年龄','text','例如：28岁 / 外表约25岁'],['gender','性别 / 性别认同','text',''],['identity','身份与职业','text','例如：私人侦探、旅人、AI伴侣'],['birthday','生日','text',''],['world','所属世界 / 世界观','text',''],['oneLine','一句话介绍','textarea','用一句话抓住这个人',true]]},
+ {id:'appearance',title:'外貌特征',hint:'把能想象出来的细节留下来。',fields:[
+  ['appearance','整体外貌','textarea','身形、脸部轮廓、气质……',true],['hair','发型与发色','textarea',''],['eyes','眼睛','textarea','眼型、瞳色、眼神'],['voice','声音与语气','textarea','音色、语速、口音、说话习惯'],['scent','气味与感官细节','textarea','气味、体温、触感等'],['clothing','穿衣风格','textarea',''],['marks','辨识特征','textarea','痣、伤疤、饰品、习惯动作'] ]},
+ {id:'core',title:'性格内核',hint:'不只写“温柔”“冷淡”，也写他为什么如此。',fields:[
+  ['personality','性格关键词','textarea','用几个词概括，也可以解释',true],['core','核心信念 / 价值观','textarea','他坚信什么？绝不妥协什么？'],['strengths','优点与能力','textarea',''],['flaws','缺点与矛盾','textarea','不完美的地方也很重要'],['fears','恐惧与软肋','textarea',''],['desires','欲望与追求','textarea','他真正想得到什么？'],['logic','行为逻辑','textarea','遇到冲突、压力或选择时，他通常怎么做？'] ]},
+ {id:'emotion',title:'情感与关系',hint:'记录他如何靠近、表达、争执，以及如何修复关系。',fields:[
+  ['relationship','与我的关系','textarea','关系定位、相识经过、当前阶段',true],['expression','情感表达方式','textarea','他如何表达喜欢、在意、吃醋或担心？'],['attachment','亲密与依恋模式','textarea','他如何靠近、信任一个人？'],['conflict','冲突与修复','textarea','争执时的反应，以及和好方式'],['boundaries','边界与禁忌','textarea','明确不能接受的事、需要尊重的边界'],['intimacy','亲密偏好','textarea','双方舒适且自愿的亲密表达方式'],['change','关系变化','textarea','关系如何发展，哪些事情改变了他？'] ]},
+ {id:'language',title:'语言与互动',hint:'让角色的声音稳定，而不是每句话都像同一个模板。',fields:[
+  ['speech','说话风格','textarea','语气、句长、用词、节奏',true],['habits','口头禅与习惯','textarea',''],['humor','幽默与吐槽方式','textarea',''],['care','关心人的方式','textarea','他会做什么，而不只是说什么？'],['initiative','主动性与日常习惯','textarea','会主动提起什么、记住什么、做什么？'],['avoid','避免的表达','textarea','不说什么、不用什么套路'],['examples','对话示例','textarea','写几句最能代表他的对话'] ]},
+ {id:'history',title:'背景与经历',hint:'过去不必写成百科全书，留下影响现在的事。',fields:[
+  ['background','背景故事','textarea','成长经历、重要环境',true],['events','关键经历','textarea','改变他的重要事件'],['people','重要人物','textarea','家人、朋友、对手或其他关系'],['secrets','秘密与隐情','textarea',''],['timeline','时间线','textarea','按时间记录关键节点'] ]},
+ {id:'memory',title:'记忆与持续设定',hint:'适合记录长期有效的共同经历与不可轻易改动的设定。',fields:[
+  ['memories','共同记忆','textarea','重要对话、事件、约定',true],['facts','必须记住的事实','textarea','不能遗忘或随意改写的内容'],['ongoing','当前状态 / 近期事件','textarea','现在发生到哪里了？'],['promises','约定与承诺','textarea',''],['evolution','允许变化的部分','textarea','哪些设定会随着经历自然变化？'] ]},
+ {id:'extra',title:'补充设定',hint:'不在模板里的东西，都放在这里。',fields:[
+  ['notes','备注','textarea','任何想留下的细节',true],['custom','自定义字段','textarea','每行一个：字段名：内容'],['prompt','可复制的人设提示词','textarea','可整理成给 AI 使用的完整提示词'] ]}
+];
+let chars=[],editingId=null,draft={},activeSection='basic',detailId=null,returnView='home',dirty=false;
+const $=id=>document.getElementById(id);
+function load(){try{const x=JSON.parse(localStorage.getItem(STORE)||'[]');chars=Array.isArray(x)?x:[]}catch(e){chars=[]}}
+function persist(){localStorage.setItem(STORE,JSON.stringify(chars));renderHome()}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function val(c,k){return c?.data?.[k]||''}
+function allFieldCount(){return chars.reduce((n,c)=>n+Object.values(c.data||{}).filter(v=>String(v).trim()).length,0)}
+function renderHome(){
+ $('count').textContent=chars.length;$('fieldCount').textContent=allFieldCount();
+ const q=$('search').value.trim().toLowerCase(),f=$('filter').value;
+ const list=chars.filter(c=>(!f||(c.data.category||'其他')===f)&&(!q||JSON.stringify(c.data).toLowerCase().includes(q)));
+ $('resultCount').textContent=`${list.length} 个档案`;
+ if(!list.length){$('grid').innerHTML=`<div class="empty"><div class="flower">✳</div><h4>${chars.length?'没有找到这个角色':'这里还空着呢'}</h4><p>${chars.length?'换个关键词试试。':'先创建第一张角色卡，把脑海里的人物安放下来。'}</p><button class="btn primary" onclick="startNew()">＋ 创建角色卡</button></div>`;return}
+ $('grid').innerHTML=list.map(c=>{const d=c.data||{},initial=(d.name||'未命名').trim().charAt(0)||'？';return `<article class="char-card"><div class="cover"><div class="avatar">${d.avatar?`<img src="${esc(d.avatar)}" alt="">`:esc(initial)}</div></div><div class="card-content"><div class="name-row"><h4>${esc(d.name||'未命名角色')}</h4><span class="tag">${esc(d.category||'其他')}</span></div><div class="subtitle">${esc([d.age,d.identity].filter(Boolean).join(' · ')||'尚未填写身份')}</div><div class="snippet">${esc(d.oneLine||d.personality||'这个角色还在等待你补充设定。')}</div><div class="card-bottom"><span>更新于 ${esc((c.updated||'').slice(0,10)||'刚刚')}</span><button onclick="openDetail('${c.id}')">查看档案 ↗</button></div></div></article>`}).join('');
+}
+function show(view){['home','editor','detail'].forEach(v=>$(v).classList.toggle('hidden',v!==view));window.scrollTo(0,0)}
+function startNew(){editingId=null;draft={};sections.forEach(s=>s.fields.forEach(f=>draft[f[0]]=''));draft.category='原创角色';activeSection='basic';$('editorHeading').textContent='创建角色';$('deleteBtn').classList.add('hidden');renderEditor();show('editor')}
+function startEdit(id){const c=chars.find(x=>x.id===id);if(!c)return;editingId=id;draft={...c.data};activeSection='basic';$('editorHeading').textContent='编辑角色';$('deleteBtn').classList.remove('hidden');renderEditor();show('editor')}
+function renderEditor(){
+ $('nav').innerHTML=sections.map(s=>`<button class="${s.id===activeSection?'active':''}" data-section="${s.id}">${s.title}</button>`).join('');
+ $('nav').querySelectorAll('button').forEach(b=>b.onclick=()=>{activeSection=b.dataset.section;renderEditor()});
+ const s=sections.find(x=>x.id===activeSection);$('panelTitle').textContent=s.title;$('panelHint').textContent=s.hint;
+ $('fields').innerHTML=s.fields.map(f=>{const [key,label,type,placeholder,full,options]=f;let control='';
+ if(type==='select')control=`<select data-key="${key}">${options.map(o=>`<option ${draft[key]===o?'selected':''}>${esc(o)}</option>`).join('')}</select>`;
+ else if(type==='textarea')control=`<textarea data-key="${key}" placeholder="${esc(placeholder||'写下你的设定…')}" class="${['background','prompt','examples','memories','appearance','personality','logic'].includes(key)?'long':''}">${esc(draft[key]||'')}</textarea>`;
+ else control=`<input data-key="${key}" type="text" value="${esc(draft[key]||'')}" placeholder="${esc(placeholder||'填写内容')}">`;
+ return `<div class="field ${full?'full':''}"><label>${esc(label)}${f[4]&&key==='name'?' · 建议填写':''}</label>${control}</div>`}).join('');
+ $('fields').querySelectorAll('[data-key]').forEach(el=>el.addEventListener('input',()=>{draft[el.dataset.key]=el.value;dirty=true;try{localStorage.setItem('character-archive-draft',JSON.stringify({editingId,draft,activeSection}))}catch(e){}}));
+}
+function save(){if(!String(draft.name||'').trim()){toast('先给角色起个名字吧');activeSection='basic';renderEditor();return}
+ const now=new Date().toISOString();if(editingId){const i=chars.findIndex(c=>c.id===editingId);if(i>=0)chars[i]={...chars[i],data:{...draft},updated:now}}else{editingId='c_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);chars.unshift({id:editingId,data:{...draft},created:now,updated:now})}
+ try{localStorage.removeItem('character-archive-draft')}catch(e){}dirty=false;persist();show('home');toast('角色档案已保存')}
+function deleteChar(){if(!editingId)return;const c=chars.find(x=>x.id===editingId);if(confirm(`确定删除「${c?.data?.name||'这个角色'}」吗？删除后无法从本机恢复，建议先导出备份。`)){chars=chars.filter(x=>x.id!==editingId);persist();show('home');toast('已删除角色')}}
+function openDetail(id){detailId=id;const c=chars.find(x=>x.id===id);if(!c)return;const d=c.data||{};$('detailBody').innerHTML=`<div class="detail-cover"><div class="avatar">${d.avatar?`<img src="${esc(d.avatar)}" alt="">`:esc((d.name||'？').charAt(0))}</div><div><h2>${esc(d.name||'未命名角色')}</h2><p>${esc([d.alias,d.age,d.identity].filter(Boolean).join(' · ')||'角色档案')}</p><p style="margin-top:8px">${esc(d.oneLine||'')}</p></div></div>`+sections.map(s=>{const fields=s.fields.filter(f=>String(d[f[0]]||'').trim());if(!fields.length)return '';return `<section class="detail-section"><h3>${esc(s.title)}</h3>${fields.map(f=>`<div class="detail-item"><b>${esc(f[1])}</b><p>${esc(d[f[0]])}</p></div>`).join('')}</section>`}).join('')+`<p class="notice">创建于 ${esc((c.created||'').slice(0,10))} · 最近更新 ${esc((c.updated||'').slice(0,10))}</p>`;show('detail')}
+function exportJSON(list,name){const blob=new Blob([JSON.stringify({format:'character-archive',version:1,exportedAt:new Date().toISOString(),characters:list},null,2)],{type:'application/json;charset=utf-8'});download(blob,name)}
+function exportOne(){const c=chars.find(x=>x.id===detailId);if(c)exportJSON([c],`${safeName(c.data.name)}-角色档案.json`)}
+function exportMarkdown(list){const text=list.map(c=>{const d=c.data||{};return `# ${d.name||'未命名角色'}\n\n`+sections.map(s=>{const items=s.fields.filter(f=>String(d[f[0]]||'').trim());return items.length?`## ${s.title}\n\n`+items.map(f=>`### ${f[1]}\n${d[f[0]]}`).join('\n\n')+'\n':''}).join('\n')}).join('\n\n---\n\n');download(new Blob([text],{type:'text/markdown;charset=utf-8'}),`角色档案-${new Date().toISOString().slice(0,10)}.md`)}
+function safeName(s){return String(s||'角色').replace(/[\\/:*?"<>|]/g,'_').slice(0,40)}
+function download(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function toast(msg){const old=document.querySelector('.toast');if(old)old.remove();const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+$('topNew').onclick=$('heroNew').onclick=startNew;$('backHome').onclick=$('cancelEdit').onclick=()=>{if(dirty&&!confirm('还有未保存的修改，确定离开吗？'))return;dirty=false;show('home')};$('saveBtn').onclick=save;$('deleteBtn').onclick=deleteChar;$('search').oninput=renderHome;$('filter').onchange=renderHome;
+$('detailBack').onclick=()=>show('home');$('detailEdit').onclick=()=>startEdit(detailId);$('detailExport').onclick=exportOne;
+$('exportAll').onclick=()=>{if(!chars.length){toast('还没有角色可以导出');return}exportJSON(chars,`角色档案备份-${new Date().toISOString().slice(0,10)}.json`)};
+$('exportMd').onclick=()=>{if(!chars.length){toast('还没有角色可以导出');return}exportMarkdown(chars)};
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const obj=JSON.parse(await file.text());const incoming=Array.isArray(obj)?obj:(obj.characters||obj.data||[]);if(!Array.isArray(incoming))throw new Error('格式不对');let added=0;incoming.forEach(item=>{if(!item||!item.data||typeof item.data!=='object')return;let id=item.id||'c_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);if(chars.some(c=>c.id===id))id=id+'_import_'+Math.random().toString(36).slice(2,5);chars.push({...item,id,updated:new Date().toISOString()});added++});persist();toast(`导入完成，新增 ${added} 个角色`)}catch(err){toast('导入失败，请选择本工具导出的 JSON 备份')}e.target.value=''};
+load();renderHome();
+</script>
+</body>
+</html>
